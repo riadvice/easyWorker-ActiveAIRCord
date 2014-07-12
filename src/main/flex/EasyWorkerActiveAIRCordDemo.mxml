@@ -42,7 +42,7 @@
 
 			protected function buttonEmployeesThread_clickHandler(event:MouseEvent):void
 			{
-                const models:Vector.<String> = Vector.<String>(["models.Employee"]);
+				const models:Vector.<String> = Vector.<String>([ "models.Employee" ]);
 				thread = new AIRCordThread(GetEmployeesWorker, "getEmployeesWorker", DBConf.getEnryptionKey(true), models);
 
 				thread.addEventListener(ThreadResultEvent.RESULT, onDbWorkerReady);
