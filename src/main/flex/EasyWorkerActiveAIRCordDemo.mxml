@@ -42,7 +42,8 @@
 
 			protected function buttonEmployeesThread_clickHandler(event:MouseEvent):void
 			{
-				thread = new AIRCordThread(GetEmployeesWorker, "getEmployeesWorker", DBConf.getEnryptionKey(true));
+                const models:Vector.<String> = Vector.<String>(["models.Employee"]);
+				thread = new AIRCordThread(GetEmployeesWorker, "getEmployeesWorker", DBConf.getEnryptionKey(true), models);
 
 				thread.addEventListener(ThreadResultEvent.RESULT, onDbWorkerReady);
 				thread.addEventListener(ThreadFaultEvent.FAULT, thread_faultHandler);
