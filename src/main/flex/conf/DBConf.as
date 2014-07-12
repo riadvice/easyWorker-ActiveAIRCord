@@ -4,7 +4,7 @@ package conf
 
     public class DBConf
     {
-        [Embed(source = "../resources/security/private.ppk", mimeType = "application/octet-stream")]
+        [Embed(source = "/../resources/security/private.ppk", mimeType = "application/octet-stream")]
         public static const ENCRYPTION_KEY : Class
 
         public static const CONNECTION_EMPLOYEES : String = "employees";
@@ -13,6 +13,7 @@ package conf
         {
             var assetKey : ByteArray = new ENCRYPTION_KEY() as ByteArray;
             var encryptionKey : ByteArray = new ByteArray();
+            encryptionKey.shareable = true;
             encryptionKey.writeBytes(assetKey, 163, 16);
             return encryptionKey;
         }
