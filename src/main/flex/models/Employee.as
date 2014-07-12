@@ -1,41 +1,40 @@
 package models
 {
-    import com.riadvice.activeaircord.Model;
+	import com.riadvice.activeaircord.Model;
 
-    import conf.DBConf;
+	[RemoteClass(alias = "models.Employee")]
+	[Bindable]
+	/**
+	 * Database model class for Employee.
+	 */
+	public dynamic class Employee extends Model
+	{
+		//--------------------------------------------------------------------------
+		//
+		//  ActiveAIRCord Class Registration
+		//
+		//--------------------------------------------------------------------------
 
-    [Bindable]
-    /**
-     * Database model class for Employee.
-     */
-    public dynamic class Employee extends Model
-    {
-        //--------------------------------------------------------------------------
-        //
-        //  ActiveAIRCord Class Registration
-        //
-        //--------------------------------------------------------------------------
+		staticInitializer(prototype.constructor);
 
-        staticInitializer(prototype.constructor);
+		//--------------------------------------------------------------------------
+		//
+		//  Class Constants : Model
+		//
+		//--------------------------------------------------------------------------
 
-        //--------------------------------------------------------------------------
-        //
-        //  Class Constants : Model
-        //
-        //--------------------------------------------------------------------------
+		public static const tableName:String = "Employees";
+		public static const connection:String = "employees";
 
-        public static const tableName : String = "Employees";
-        public static const connection : String = DBConf.CONNECTION_EMPLOYEES;
+		//--------------------------------------------------------------------------
+		//
+		//  Constructor
+		//
+		//--------------------------------------------------------------------------
 
-        //--------------------------------------------------------------------------
-        //
-        //  Constructor
-        //
-        //--------------------------------------------------------------------------
-
-        public function Employee( attributes : Object = null, guardAttributes : Boolean = true, instantiatingViaFind : Boolean = false, newRecord : Boolean = true )
-        {
-            super(attributes, guardAttributes, instantiatingViaFind, newRecord);
-        }
-    }
+		public function Employee(attributes:Object=null, guardAttributes:Boolean=true, instantiatingViaFind:Boolean=false, newRecord:Boolean=true)
+		{
+			super(attributes, guardAttributes, instantiatingViaFind, newRecord);
+		}
+	}
 }
