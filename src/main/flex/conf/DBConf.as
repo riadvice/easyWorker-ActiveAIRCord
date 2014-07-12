@@ -1,21 +1,25 @@
 package conf
 {
-    import flash.utils.ByteArray;
+	import flash.utils.ByteArray;
 
-    public class DBConf
-    {
-        [Embed(source = "/../resources/security/private.ppk", mimeType = "application/octet-stream")]
-        public static const ENCRYPTION_KEY : Class
+	public class DBConf
+	{
 
-        public static const CONNECTION_EMPLOYEES : String = "employees";
+		/**
+		 * Can't pass the AMF process
+		 */
+		[Embed(source = "/../resources/security/private.ppk", mimeType = "application/octet-stream")]
+		public static var ENCRYPTION_KEY:Class;
 
-        public static function getEnryptionKey() : ByteArray
-        {
-            var assetKey : ByteArray = new ENCRYPTION_KEY() as ByteArray;
-            var encryptionKey : ByteArray = new ByteArray();
-            encryptionKey.shareable = true;
-            encryptionKey.writeBytes(assetKey, 163, 16);
-            return encryptionKey;
-        }
-    }
+		public static var CONNECTION_EMPLOYEES:String = "employees";
+
+		public static function getEnryptionKey(sharable:Boolean=false):ByteArray
+		{
+			var assetKey:ByteArray = new ENCRYPTION_KEY() as ByteArray;
+			var encryptionKey:ByteArray = new ByteArray();
+			encryptionKey.shareable = sharable;
+			encryptionKey.writeBytes(assetKey, 163, 16);
+			return encryptionKey;
+		}
+	}
 }
