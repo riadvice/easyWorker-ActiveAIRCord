@@ -5,23 +5,19 @@
 
 	<fx:Script>
 		<![CDATA[
-			import com.doublefx.as3.thread.Thread;
 			import com.doublefx.as3.thread.api.IThread;
 			import com.doublefx.as3.thread.event.ThreadFaultEvent;
 			import com.doublefx.as3.thread.event.ThreadResultEvent;
 			import com.riadvice.activeaircord.Configuration;
 			import com.riadvice.activeaircord.Model;
+            import mx.events.FlexEvent;
 
+			
 			import conf.DBConf;
-
+			
 			import models.Employee;
-
-			import mx.core.FlexGlobals;
-
-			import mx.events.FlexEvent;
-
+			
 			import workers.AIRCordThread;
-
 			import workers.GetEmployeesWorker;
 
 			private var thread:IThread;

@@ -3,43 +3,41 @@
  */
 package workers
 {
-	import com.doublefx.as3.thread.api.CrossThreadDispatcher;
-	import com.doublefx.as3.thread.api.Runnable;
-	import com.riadvice.activeaircord.Configuration;
+    import com.doublefx.as3.thread.api.CrossThreadDispatcher;
+    import com.doublefx.as3.thread.api.Runnable;
+    import com.riadvice.activeaircord.Configuration;
 
-	import conf.DBConf;
+    import flash.utils.ByteArray;
 
-	import flash.utils.ByteArray;
+    public class AIRCordRunnableBase implements Runnable
+    {
 
-	public class AIRCordRunnableBase implements Runnable
-	{
+        /**
+         * Mandatory declaration if you want your Worker be able to communicate.
+         * This CrossThreadDispatcher is injected at runtime.
+         */
+        public var dispatcher : CrossThreadDispatcher;
 
-		/**
-		 * Mandatory declaration if you want your Worker be able to communicate.
-		 * This CrossThreadDispatcher is injected at runtime.
-		 */
-		public var dispatcher:CrossThreadDispatcher;
+        protected function configureDB() : void
+        {
+            // Reconfigure database connection because of the different application domain
 
-		protected function configureDB():void
-		{
-			// Reconfigure database connection because of the different application domain
+            Configuration.presistencePackage = "models";
 
-			Configuration.presistencePackage = "models";
+            // Use this key to decrypt the database
+            // SQLLite doesn't like shared ByteArray, so, copy it into an unshared one.
+            const sharedProperty : ByteArray = dispatcher.getSharedProperty("ENCRYPTION_KEY") as ByteArray;
+            const ba : ByteArray = new ByteArray();
+            sharedProperty.readBytes(ba);
 
-			// Use this key to decrypt the database
-			// SQLLite doesn't like shared ByteArray, so, copy it into an unshared one.
-			const sharedProperty:ByteArray = dispatcher.getSharedProperty("ENCRYPTION_KEY") as ByteArray;
-			const ba:ByteArray = new ByteArray();
-			sharedProperty.readBytes(ba);
+            Configuration.setEncryptionKeyFor("employees", ba);
 
-			Configuration.setEncryptionKeyFor("employees", ba);
+            Configuration.connections = {"employees": "sqlite://sqlite/employees.db?mode=read"};
+        }
 
-			Configuration.connections = { "employees": "sqlite://sqlite/employees.db?mode=read" };
-		}
-
-		public function run(args:Array):void
-		{
-			configureDB();
-		}
-	}
+        public function run( args : Array ) : void
+        {
+            configureDB();
+        }
+    }
 }
