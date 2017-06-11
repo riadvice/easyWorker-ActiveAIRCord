@@ -22,7 +22,7 @@ package workers
         {
             // Reconfigure database connection because of the different application domain
 
-            Configuration.presistencePackage = "models";
+            Configuration.persistencePackage = "models";
 
             // Use this key to decrypt the database
             // SQLLite doesn't like shared ByteArray, so, copy it into an unshared one.
